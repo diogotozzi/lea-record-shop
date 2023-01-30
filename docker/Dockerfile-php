@@ -1,0 +1,3 @@
+FROM registry.gitlab.com/comandaclub/comandaclub/php:base-prod
+
+COPY . /app/comandaclub

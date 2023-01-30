@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+    # nginx:
+    #     build: ./docker/nginx
+    #     container_name: "nginx"
+    #     ports:
+    #         - "80:80"
+    #         - "443:443"
+    #     volumes:
+    #         - /run/media/diogo/7f7a95bf-488d-465a-b304-8a0ee92a3558/workspace:/app
+    #     networks:
+    #         - lea-network
+    # php:
+    #     build: ./docker/php
+    #     container_name: "php"
+    #     volumes:
+    #         - /run/media/diogo/7f7a95bf-488d-465a-b304-8a0ee92a3558/workspace:/app
+    #     networks:
+    #         - lea-network
+    database:
+        image: mysql:8.0.32
+        container_name: "primary"
+        ports:
+            - "3306:3306"
+        volumes:
+            - /var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: "root"
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+            MYSQL_DATABASE: lea
+        networks:
+            - lea-network
+    # cache:
+    #     build: ./docker/redis
+    #     container_name: "cache"
+    #     ports:
+    #         - "6379:6379"
+    #     networks:
+    #         - lea-network
+networks:
+    lea-network:
+        name: lea-network
+        driver: bridge
