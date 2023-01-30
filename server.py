@@ -26,6 +26,12 @@ register_tortoise(
 @app.get("/disc/<disc_id:int>")
 async def disc(request: Request, disc_id: int) -> response.json:
     disc = await Discs.filter(id=disc_id, deleted=None).first()
+
+    if not disc:
+        return response.json(
+            body={"disc":"disc does not exist"},
+            status=404,
+        )
     return response.json({"disc": str(disc)})
 
 @app.get("/discs")
@@ -52,6 +58,12 @@ async def add_disc(request: Request) -> response.json:
 @app.get("/client/<client_id:int>")
 async def client(request: Request, client_id: int) -> response.json:
     client = await Clients.filter(id=client_id, deleted=None).first()
+    
+    if not client:
+        return response.json(
+            body={"client":"client does not exist"},
+            status=404,
+        )
     return response.json({"client": str(client)})
 
 @app.get("/clients")
@@ -89,11 +101,17 @@ async def add_order(request: Request) -> response.json:
 
     client = await Clients.filter(id=data["client_id"], deleted=None).first()
     if not client:
-        return response.json({"order":"client does not exist"}, status=204)
+        return response.empty(
+            headers={"order":"client does not exist"},
+            status=204,
+        )
 
     disc = await Discs.filter(id=data["disc_id"], deleted=None).first()
     if disc.quantity < data["quantity"]:
-        return response.json({"order":"not enough discs"}, status=204)
+        return response.empty(
+            headers={"order":"no discs available at stock"},
+            status=204,
+        )
     
     disc.quantity=int(disc.quantity) - 1
     await disc.save()
@@ -105,7 +123,7 @@ async def add_order(request: Request) -> response.json:
         created=datetime.now(),
     )
 
-    return response.json({"order": str(order)})
+    return response.json({"order": str(order)}, status=201)
 
 if __name__ == '__main__':
     app.run(host="127.0.0.1", port=8000)
