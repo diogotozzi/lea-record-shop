@@ -1,0 +1,15 @@
+{
+    "connections": {
+        "master": "mysql://root:root@127.0.0.1:3306/lea",
+        "slave": "mysql://root:root@127.0.0.1:3306/lea"
+    },
+    "apps": {
+        "models": {
+            "models": ["models"],
+            "default_connection": "master"
+        }
+    },
+    "routers": ["models.Router"],
+    "use_tz": "False",
+    "timezone": "UTC"
+}

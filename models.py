@@ -1,7 +1,6 @@
-import json
-from datetime import datetime
 from tortoise import fields
 from tortoise import Model
+from tortoise import Type
 
 
 class Discs(Model):
@@ -59,3 +58,11 @@ class Orders(Model):
         obj["quantity"] = f"{self.quantity}"
         obj["created"] = f"{self.created:%m/%d/%Y}"
         return f"{obj}"
+
+
+class Router:
+    def db_for_read(self, model: Type[Model]):
+        return "slave"
+
+    def db_for_write(self, model: Type[Model]):
+        return "master"

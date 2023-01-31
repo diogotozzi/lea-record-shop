@@ -18,8 +18,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 register_tortoise(
     app,
-    db_url="mysql://root:root@127.0.0.1/lea",
-    modules={"models": ["models"]},
+    config_file="./tortoise.json",
     generate_schemas=True
 )
 

@@ -1,3 +1,0 @@
-FROM registry.gitlab.com/comandaclub/comandaclub/nginx:base-prod
-
-COPY . /app/comandaclub
