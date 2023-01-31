@@ -1,9 +1,8 @@
 # Lea Record Shop
 
-Feito com **Sanic Framework**, o mesmo utilizado no **Rasa Open Source**.
+Feito com **[Sanic Framework](https://sanic.dev)**, o mesmo utilizado internamente no **[Rasa](https://rasa.com)**.
 
 [![Sanic Framework](sanic.png)](https://sanic.dev)
-[![Rasa](rasa.svg)](https://rasa.com)
 
 # Infraestrutura
 
