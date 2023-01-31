@@ -1,7 +1,7 @@
 {
     "connections": {
-        "master": "mysql://root:root@127.0.0.1:3306/lea",
-        "slave": "mysql://root:root@127.0.0.1:3306/lea"
+        "master": "mysql://root:root@127.0.0.1/lea",
+        "slave": "mysql://root:root@127.0.0.1/lea"
     },
     "apps": {
         "models": {

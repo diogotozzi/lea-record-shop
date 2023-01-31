@@ -33,6 +33,7 @@ async def disc(request: Request, disc_id: int) -> response.json:
         )
     return response.json(str(disc))
 
+@app.get("/")
 @app.get("/discs")
 async def discs(request: Request) -> response.json:
     discs = await Discs.filter(deleted=None)
@@ -52,6 +53,13 @@ async def add_disc(request: Request) -> response.json:
     )
 
     return response.json({"disc": str(disc)}, status=201)
+
+@app.delete("/disc/<disc_id:int>", ignore_body=False)
+async def delete_disc(request: Request, disc_id: int) -> response.json:
+    disc = await Discs.filter(id=disc_id).first()
+    disc.deleted=datetime.now()
+    await disc.save()
+    return response.json(str(disc))
 
 
 @app.get("/client/<client_id:int>")

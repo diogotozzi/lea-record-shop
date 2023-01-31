@@ -18,7 +18,7 @@ class Discs(Model):
         obj["id"] = f"{self.id}"
         obj["name"] = f"{self.name}"
         obj["artist"] = f"{self.artist}"
-        obj["launched"] = f"{self.launched:%m/%d/%Y}"
+        obj["launched"] = f"{self.launched:%Y}"
         obj["style"] = f"{self.style}"
         obj["quantity"] = f"{self.quantity}"
         return f"{obj}"
@@ -58,7 +58,6 @@ class Orders(Model):
         obj["quantity"] = f"{self.quantity}"
         obj["created"] = f"{self.created:%m/%d/%Y}"
         return f"{obj}"
-
 
 class Router:
     def db_for_read(self, model: Type[Model]):
