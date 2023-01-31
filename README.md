@@ -13,7 +13,7 @@ Todas as informações buscadas no banco de dados são cacheadas no **Redis**, p
 
 O **Sanic Framework** faz o principal trabalho lógico de busca nos bancos, modelagem de dados e cacheamento. Com esta configuração, ele pode ser escalonado segundo a demanda.
 
-À frente temos o **Nginx** funcionando como um Proxy Reverso, aumentando ainda mais a capacidade de carga que esse sistema pode suportar.
+À frente do **Sanic Framework** temos o **Nginx** funcionando como Proxy Reverso, aumentando ainda mais a capacidade de carga que esse sistema pode suportar.
 
 ![Sanic Framework](infra.png)
 
@@ -31,14 +31,14 @@ Com essas três tecnologias básicas, pudemos criar um sistema robusto e escalon
 
 # TODO (à fazer)
 
-Neste projeto não foi desenvolvido o filtro da API de discos, pois demandaria outras tecnologias de busca, como o ElastiCache, já que qualquer **SELECT** específicio no banco de dados pode prejudicar a performance.
+Neste projeto não foi desenvolvido o filtro da API de discos, pois demandaria outras tecnologias de busca, como o **ElastiCache**, já que qualquer **SELECT** específicio no banco de dados pode prejudicar a performance.
 
-Ficamos satisfeitos em deixar a responsabilidade de quaisquer tipos de buscas/filtros com algum sistema de front end, deixando o back end aqui citado apenas para o foco do objetivo.
+Ficamos satisfeitos em deixar a responsabilidade de quaisquer tipos de buscas/filtros com algum sistema de front end, deixando o back end aqui citado apenas para o foco do projeto.
 
 
 # Como rodar o ambiente?
 
-Será necessário apenas ter Docker e Docker Compose no sistema. Baixar o repositório e rodar o seguinte comando:
+Será necessário apenas ter **Docker** e **Docker Compose** no sistema. Baixar o repositório e rodar o seguinte comando:
 
 `docker compose up`
 
@@ -65,9 +65,22 @@ Abaixo tem alguns comandos via console de CRUD para discos, clientes e pedidos:
 >
 `curl http://127.0.0.1/disc/1 --request "DELETE"`
 
+> Cria um novo usuário
+>
 `curl http://127.0.0.1/client --data '{"name":"John Doe","document":"0001","birthdate":"12/31/2000","email":"john-doe@example.com","phone":"555-1234"}'`
+
+> Mostra todos os usuários
+>
 `curl http://127.0.0.1/clients`
+
+> Mostra um usuário específico, pelo ID
+>
 `curl http://127.0.0.1/client/1`
+
+> Apaga um usuário
+>
 `curl http://127.0.0.1/client/1 --request "DELETE"`
 
+> Faz um pedido de um disco, usando o ID do usuário e do disco
+>
 `curl http://127.0.0.1/order --data '{"client_id":"1","disc_id":"1","quantity":"1"}'`
