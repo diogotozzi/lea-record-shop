@@ -32,12 +32,12 @@ async def disc(request: Request, disc_id: int) -> response.json:
             body={"disc":"disc does not exist"},
             status=404,
         )
-    return response.json({"disc": str(disc)})
+    return response.json(str(disc))
 
 @app.get("/discs")
 async def discs(request: Request) -> response.json:
     discs = await Discs.filter(deleted=None)
-    return response.json({"discs": [str(disc) for disc in discs]})
+    return response.json([str(disc) for disc in discs])
 
 @app.post("/disc")
 async def add_disc(request: Request) -> response.json:
@@ -58,7 +58,7 @@ async def add_disc(request: Request) -> response.json:
 @app.get("/client/<client_id:int>")
 async def client(request: Request, client_id: int) -> response.json:
     client = await Clients.filter(id=client_id, deleted=None).first()
-    
+
     if not client:
         return response.json(
             body={"client":"client does not exist"},
@@ -69,7 +69,7 @@ async def client(request: Request, client_id: int) -> response.json:
 @app.get("/clients")
 async def clients(request: Request) -> response.json:
     clients = await Clients.filter(deleted=None)
-    return response.json({"clients": [str(client) for client in clients]})
+    return response.json([str(client) for client in clients])
 
 @app.post("/client")
 async def add_client(request: Request) -> response.json:
@@ -78,20 +78,20 @@ async def add_client(request: Request) -> response.json:
     client = await Clients.create(
         name=data["name"],
         document=data["document"],
-        birthdate=datetime.strptime(data["birthdate"], '%m/%d/%Y'),
+        birthdate=datetime.strptime(data["birthdate"], "%m/%d/%Y"),
         email=data["email"],
         phone=data["phone"],
         created=datetime.now(),
     )
 
-    return response.json({"client": str(client)}, status=201)
+    return response.json(str(client), status=201)
 
 @app.delete("/client/<client_id:int>", ignore_body=False)
 async def delete_client(request: Request, client_id: int) -> response.json:
     client = await Clients.filter(id=client_id).first()
     client.deleted=datetime.now()
     await client.save()
-    return response.json({"client": str(client)})
+    return response.json(str(client))
 
 
 @app.post("/order")
@@ -112,7 +112,7 @@ async def add_order(request: Request) -> response.json:
             headers={"order":"no discs available at stock"},
             status=204,
         )
-    
+
     disc.quantity=int(disc.quantity) - 1
     await disc.save()
 
@@ -123,7 +123,7 @@ async def add_order(request: Request) -> response.json:
         created=datetime.now(),
     )
 
-    return response.json({"order": str(order)}, status=201)
+    return response.json(str(order), status=201)
 
 if __name__ == '__main__':
     app.run(host="127.0.0.1", port=8000)
