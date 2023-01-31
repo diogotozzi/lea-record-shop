@@ -53,6 +53,7 @@ class Orders(Model):
 
     def __str__(self) -> int:
         obj = {}
+        obj["id"] = f"{self.id}"
         obj["client_id"] = f"{self.client_id}"
         obj["disc_id"] = f"{self.disc_id}"
         obj["quantity"] = f"{self.quantity}"

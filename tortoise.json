@@ -1,7 +1,7 @@
 {
     "connections": {
-        "master": "mysql://root:root@127.0.0.1/lea",
-        "slave": "mysql://root:root@127.0.0.1/lea"
+        "master": "asyncpg://root:root@postgres/lea",
+        "slave": "asyncpg://root:root@postgres/lea"
     },
     "apps": {
         "models": {
