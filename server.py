@@ -9,7 +9,8 @@ from sanic import Sanic
 from sanic.request import Request
 from tortoise.contrib.sanic import register_tortoise
 
-from models import Clients, Discs, Orders
+from models.models import Clients, Discs, Orders
+
 
 app = Sanic("LeaRecordShopApp")
 
@@ -212,4 +213,4 @@ async def add_order(request: Request, cache: CacheAdapter) -> response.json:
 # =====
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8000, debug=False)
+    app.run()

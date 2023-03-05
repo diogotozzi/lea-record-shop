@@ -1,15 +1,15 @@
 {
     "connections": {
-        "master": "asyncpg://root:root@postgres/lea",
-        "slave": "asyncpg://root:root@postgres/lea"
+        "main": "asyncpg://root:root@postgres/lea",
+        "replica": "asyncpg://root:root@postgres/lea"
     },
     "apps": {
         "models": {
-            "models": ["models"],
-            "default_connection": "master"
+            "models": ["models.models"],
+            "default_connection": "main"
         }
     },
-    "routers": ["models.Router"],
+    "routers": ["models.router.Router"],
     "use_tz": "False",
     "timezone": "UTC"
 }

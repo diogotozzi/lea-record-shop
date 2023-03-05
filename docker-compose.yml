@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
     sanic:
-        build: .
+        image: python:3.11.2-alpine3.17
         container_name: "sanic"
         ports:
             - "8000:8000"
@@ -11,6 +11,13 @@ services:
                 condition: service_healthy
             redis:
                 condition: service_healthy
+        volumes:
+            - .:/sanic
+        command: ash -c
+            "cd /sanic &&
+            pip install --root-user-action=ignore --upgrade pip &&
+            pip install --root-user-action=ignore -r requirements.txt &&
+            sanic server.app --host=0.0.0.0 --port=8000 --fast --dev"
         networks:
             - lea-network
         restart: always
@@ -27,7 +34,7 @@ services:
             - lea-network
         restart: always
     postgres:
-        image: postgres:15.1-alpine
+        image: postgres:15.2-alpine
         container_name: "postgres"
         ports:
             - "5432:5432"

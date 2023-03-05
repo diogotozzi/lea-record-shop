@@ -23,7 +23,7 @@ Usamos as seguintes tecnologias para suportar cargas imensas de fluxo de usuári
 |                |Tecnologia                     |Motivo                         |
 |----------------|-------------------------------|-----------------------------|
 |Banco de dados  |`Postgres`                     |'O ecosistema Python é familiarizado com ele.'|
-|Framework       |`Sanic Framework  `            |'Ele é utilizado internamente pelo Rasa. É de suma importancia conhecê-lo.'|
+|Framework       |`Sanic Framework`              |'Ele é utilizado internamente pelo Rasa. É de suma importancia conhecê-lo.'|
 |Cache           |`Redis`|'O Redis é um banco de dados in-memory super rápido e escalonável, podendo criar clusters.'|
 
 Com essas três tecnologias básicas, pudemos criar um sistema robusto e escalonável na infraestrutura, e igualmente simples na lógica de programação, demandando poucas manutenções e débitos técnicos
@@ -83,3 +83,9 @@ Abaixo tem alguns comandos via console de CRUD para discos, clientes e pedidos:
 > Faz um pedido de um disco, usando o ID do usuário e do disco
 >
 `curl http://127.0.0.1/order --data '{"client_id":"1","disc_id":"1","quantity":"1"}'`
+
+# Delete all containers
+`docker rm $(docker ps -a -q)`
+
+# Delete all images
+`docker rmi $(docker images -q)`
