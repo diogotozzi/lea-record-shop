@@ -89,3 +89,6 @@ Abaixo tem alguns comandos via console de CRUD para discos, clientes e pedidos:
 
 # Delete all images
 `docker rmi $(docker images -q)`
+
+# Configurações do Poetry
+poetry config virtualenvs.in-project true
